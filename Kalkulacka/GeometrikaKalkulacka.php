@@ -1,41 +1,41 @@
 <?php
 
-function calculate_area_and_perimeter($shape, $a = 0, $b = 0) {
+// Definice funkce na výpočet obvodu a obsahu
+function calc_shape($shape, $a, $b = 0) {
     switch ($shape) {
         case "square":
-            $area = $a * $a;
             $perimeter = 4 * $a;
+            $area = pow($a, 2);
             break;
         case "rectangle":
-            $area = $a * $b;
             $perimeter = 2 * ($a + $b);
+            $area = $a * $b;
             break;
         case "triangle":
-            if ($a == $b) {
-                $area = ($a * $b) / 2;
+            if ($b == 0) {
                 $perimeter = 3 * $a;
+                $area = (sqrt(3) / 4) * pow($a, 2);
             } else {
-                $area = ($a * $b) / 2;
-                $perimeter = $a + $b + sqrt($a*$a + $b*$b);
+                $perimeter = $a + $b + sqrt(pow($a, 2) + pow($b, 2));
+                $area = 0.5 * $a * $b;
             }
             break;
         default:
-            return "Invalid shape";
+            return "Shape not supported";
     }
 
-    return array("area" => $area, "perimeter" => $perimeter);
+    return array("perimeter" => $perimeter, "area" => $area);
 }
 
-$result = calculate_area_and_perimeter("square", 5);
-print_r($result);
+// Volání funkce s výpočtem
+$shape = "square";
+$a = 5;
+$b = 0;
+$result = calc_shape($shape, $a, $b);
 
-$result = calculate_area_and_perimeter("rectangle", 5, 10);
-print_r($result);
-
-$result = calculate_area_and_perimeter("triangle", 5, 5);
-print_r($result);
-
-$result = calculate_area_and_perimeter("triangle", 5, 10);
-print_r($result);
+// Výpis výsledku
+echo "Shape: " . $shape . "\n";
+echo "Perimeter: " . $result["perimeter"] . "\n";
+echo "Area: " . $result["area"] . "\n";
 
 ?>
